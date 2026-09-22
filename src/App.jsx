@@ -17,12 +17,17 @@ function Sticker({ option, selected, onClick }) {
       onClick={onClick}
       aria-pressed={selected}
       aria-label={`Add ${option.label}`}
+      type="button"
     >
-      <span
-        className="sticker-art sticker-sprite"
-        style={{ '--sprite-index': option.sprite }}
-        aria-hidden="true"
-      />
+      <span className="sticker-window" aria-hidden="true">
+        <img
+          className="sticker-strip"
+          src="/stickers/bouquet.svg"
+          alt=""
+          style={{ '--sprite-index': option.sprite }}
+          draggable="false"
+        />
+      </span>
       <span className="sticker-label">{option.label}</span>
       {selected && <span className="sticker-check">✓</span>}
     </button>
@@ -42,8 +47,8 @@ function Home({ onCreate }) {
       <header className="site-header">
         <a className="brand" href="/" aria-label="Rila home">rila</a>
         <nav className="nav" aria-label="Main navigation">
-          <button className="text-link">how it works</button>
-          <button className="text-link">open a rila</button>
+          <button className="text-link" type="button">how it works</button>
+          <button className="text-link" type="button">open a rila</button>
         </nav>
       </header>
 
@@ -52,8 +57,8 @@ function Home({ onCreate }) {
         <h1 id="hero-title">a tiny world<br />for someone you love.</h1>
         <p className="intro">Make them a letter, a bouquet, a tune, a drawing — or a whole little world of your own.</p>
         <div className="actions">
-          <button className="primary" onClick={onCreate}>make a little world <span aria-hidden="true">→</span></button>
-          <button className="secondary">I have a Rila <span aria-hidden="true">↗</span></button>
+          <button className="primary" onClick={onCreate} type="button">make a little world <span aria-hidden="true">→</span></button>
+          <button className="secondary" type="button">I have a Rila <span aria-hidden="true">↗</span></button>
         </div>
         <div className="tiny-note" aria-hidden="true"><span className="heart">♡</span> made with a little bit of love</div>
       </section>
@@ -72,7 +77,7 @@ function LittleWorld({ onBack }) {
     <main className="world-picker">
       <div className="world-wash" aria-hidden="true" />
       <header className="picker-header">
-        <button className="back-link" onClick={onBack}>← back</button>
+        <button className="back-link" onClick={onBack} type="button">← back</button>
         <span className="picker-brand">rila</span>
         <span className="step">1 / ∞</span>
       </header>
@@ -91,7 +96,7 @@ function LittleWorld({ onBack }) {
           ))}
         </div>
 
-        <button className={`continue-button ${selected.length ? 'ready' : ''}`} disabled={!selected.length}>
+        <button className={`continue-button ${selected.length ? 'ready' : ''}`} disabled={!selected.length} type="button">
           continue with {selected.length ? selected.length : 'your'} little {selected.length === 1 ? 'thing' : 'world'} <span>→</span>
         </button>
       </section>
