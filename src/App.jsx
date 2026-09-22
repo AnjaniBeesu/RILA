@@ -42,9 +42,8 @@ function LittleWorld({ onBack }) {
         <span className="step">1 / ∞</span>
       </header>
 
-      <section className="reference-section" aria-labelledby="picker-title">
-        <h1 id="picker-title" className="sr-only">select what you want your beloved to see.</h1>
-        <img className="reference-image" src="/rila-reference.jpg" alt="Rila little-world selection scene" draggable="false" />
+      <section className="reference-section" aria-label="Little-world preview">
+        <img className="reference-image" src="/rila-reference.jpg?v=2" alt="Rila little-world selection scene" draggable="false" />
       </section>
 
       <section className="options-panel" aria-label="Things to include">
