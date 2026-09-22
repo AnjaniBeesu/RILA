@@ -42,12 +42,10 @@ function LittleWorld({ onBack }) {
         <span className="step">1 / ∞</span>
       </header>
 
-      <section className="reference-section" aria-label="Little-world preview">
-        <img className="reference-image" src="/rila-reference.jpg?v=5" alt="Rila little-world selection scene" draggable="false" />
-      </section>
-
       <section className="options-panel" aria-label="Things to include">
-        <p className="options-kicker">choose what your beloved gets to see</p>
+        <p className="options-kicker">let's make something little</p>
+        <h1 className="picker-title">select what you want<br />your beloved to see.</h1>
+        <p className="picker-subtitle">choose as many as you like.</p>
         <div className="options-row">
           {options.map((option) => {
             const active = selected.includes(option.id)
@@ -59,7 +57,7 @@ function LittleWorld({ onBack }) {
           })}
         </div>
         <button className={`continue-button ${selected.length ? 'ready' : ''}`} disabled={!selected.length} type="button">
-          {selected.length ? `continue with ${selected.length} ${selected.length === 1 ? 'thing' : 'things'} →` : 'choose something first →'}
+          {selected.length ? `continue with ${selected.length} ${selected.length === 1 ? 'thing' : 'things'} →` : 'continue with your little world →'}
         </button>
       </section>
     </main>
