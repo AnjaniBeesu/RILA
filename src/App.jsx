@@ -43,7 +43,7 @@ function LittleWorld({ onBack }) {
       </header>
 
       <section className="reference-section" aria-label="Little-world preview">
-        <img className="reference-image" src="/rila-reference.jpg?v=3" alt="Rila little-world selection scene" draggable="false" />
+        <img className="reference-image" src="/rila-reference.jpg?v=4" alt="Rila little-world selection scene" draggable="false" />
       </section>
 
       <section className="options-panel" aria-label="Things to include">
