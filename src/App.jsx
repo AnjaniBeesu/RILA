@@ -1,13 +1,13 @@
 import { useState } from 'react'
 
 const options = [
-  { id: 'bouquet', label: 'a bouquet', position: 'pos-one', src: '/stickers/generated/bouquet.png' },
-  { id: 'letter', label: 'a letter', position: 'pos-two', src: '/stickers/generated/letter.png' },
-  { id: 'drawing', label: 'a drawing', position: 'pos-three', src: '/stickers/generated/drawing.png' },
-  { id: 'music', label: 'a tune', position: 'pos-four', src: '/stickers/generated/music.png' },
-  { id: 'avatars', label: 'avatars', position: 'pos-five', src: '/stickers/generated/avatars.png' },
-  { id: 'pictures', label: 'pictures', position: 'pos-six', src: '/stickers/generated/pictures.png' },
-  { id: 'world', label: 'a little world', position: 'pos-seven', src: '/stickers/generated/world.png' },
+  { id: 'bouquet', label: 'a bouquet', position: 'pos-one', src: '/stickers/generated/bouquet.svg' },
+  { id: 'letter', label: 'a letter', position: 'pos-two', src: '/stickers/generated/letter.svg' },
+  { id: 'drawing', label: 'a drawing', position: 'pos-three', src: '/stickers/generated/drawing.svg' },
+  { id: 'music', label: 'a tune', position: 'pos-four', src: '/stickers/generated/music.svg' },
+  { id: 'avatars', label: 'avatars', position: 'pos-five', src: '/stickers/generated/avatars.svg' },
+  { id: 'pictures', label: 'pictures', position: 'pos-six', src: '/stickers/generated/pictures.svg' },
+  { id: 'world', label: 'a little world', position: 'pos-seven', src: '/stickers/generated/world.svg' },
 ]
 
 function Sticker({ option, selected, onClick }) {
