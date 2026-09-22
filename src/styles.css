@@ -51,12 +51,12 @@ h1 { max-width: 850px; margin: 0; font-size: clamp(3.5rem, 7.8vw, 7.7rem); font-
 .selected-count { display: inline-block; margin: 13px 0 0; padding: 5px 10px; border: 1px solid rgba(11,17,20,.18); border-radius: 999px; background: rgba(255,255,255,.32); font-size: .72rem; }
 .sticker-field { position: absolute; inset: 0; z-index: 10; pointer-events: none; }
 .sticker-option { position: absolute; display: flex; flex-direction: column; align-items: center; border: 0; padding: 0; background: transparent; cursor: pointer; pointer-events: auto; transition: transform 260ms cubic-bezier(.2,.8,.2,1), filter 260ms ease; }
-.sticker-art { display: block; width: 165px; height: 165px; }
-.sticker-sprite { background-image: url("/stickers/bouquet.svg"); background-repeat: no-repeat; background-size: 1155px 165px; background-position: calc(var(--sprite-index) * -165px) 0; filter: drop-shadow(0 9px 8px rgba(30,50,55,.12)); transition: transform 260ms ease, filter 260ms ease; }
+.sticker-window { display: block; width: 170px; height: 170px; overflow: hidden; position: relative; filter: drop-shadow(0 9px 8px rgba(30,50,55,.12)); transition: transform 260ms ease, filter 260ms ease; }
+.sticker-strip { position: absolute; top: 0; left: calc(var(--sprite-index) * -170px); display: block; width: 1190px; height: 170px; max-width: none; user-select: none; pointer-events: none; }
 .sticker-label { margin-top: -2px; padding: 5px 9px; border-radius: 999px; background: rgba(255,255,255,.48); font-size: .76rem; opacity: .82; backdrop-filter: blur(5px); white-space: nowrap; }
 .sticker-option:hover { transform: translateY(-7px) rotate(-2deg) scale(1.05); }
-.sticker-option:hover .sticker-sprite { filter: drop-shadow(0 14px 11px rgba(30,50,55,.16)); }
-.sticker-option.selected .sticker-sprite { transform: rotate(4deg) scale(1.08); filter: drop-shadow(0 13px 10px rgba(30,50,55,.19)); }
+.sticker-option:hover .sticker-window { filter: drop-shadow(0 14px 11px rgba(30,50,55,.16)); }
+.sticker-option.selected .sticker-window { transform: rotate(4deg) scale(1.08); filter: drop-shadow(0 13px 10px rgba(30,50,55,.19)); }
 .sticker-option.selected .sticker-label { background: rgba(255,255,255,.74); }
 .sticker-check { position: absolute; top: 4px; right: 6px; display: grid; place-items: center; width: 23px; height: 23px; border-radius: 50%; background: var(--ink); color: white; font-family: Arial, sans-serif; font-size: .7rem; box-shadow: 0 4px 10px rgba(0,0,0,.14); }
 .pos-one { top: 4%; left: 11%; transform: rotate(-9deg); }.pos-two { top: 7%; right: 12%; transform: rotate(7deg); }.pos-three { top: 37%; left: 1%; transform: rotate(-7deg); }.pos-four { top: 35%; right: 1%; transform: rotate(9deg); }.pos-five { bottom: 9%; left: 13%; transform: rotate(6deg); }.pos-six { bottom: 6%; right: 13%; transform: rotate(-6deg); }.pos-seven { top: 66%; left: 50%; transform: translateX(-50%) rotate(4deg); }
@@ -73,7 +73,7 @@ button:focus-visible, a:focus-visible { outline: 2px solid var(--ink); outline-o
   .hero { padding-top: 72px; } .hero h1 { font-size: clamp(3.15rem, 15vw, 5.8rem); line-height: .9; }
   .intro { max-width: 390px; font-size: 1rem; }.actions { width: 100%; max-width: 330px; }.primary,.secondary { width: 100%; }
   .picker-stage { min-height: calc(100svh - 72px); }.question-wrap { top: 48%; }.question-wrap h1 { font-size: clamp(2.45rem, 10vw, 4rem); }
-  .sticker-art { width: 108px; height: 108px; }.sticker-sprite { background-size: 756px 108px; }
+  .sticker-window { width: 112px; height: 112px; }.sticker-strip { width: 784px; height: 112px; left: calc(var(--sprite-index) * -112px); }
   .sticker-label { font-size: .66rem; padding: 3px 6px; }
   .pos-one { top: 5%; left: -2%; }.pos-two { top: 8%; right: -2%; }.pos-three { top: 34%; left: -5%; }.pos-four { top: 33%; right: -5%; }.pos-five { bottom: 13%; left: -2%; }.pos-six { bottom: 12%; right: -2%; }.pos-seven { top: 70%; }
   .continue-button { bottom: 17px; }
