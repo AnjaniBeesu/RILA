@@ -1,0 +1,65 @@
+name: Build Rila sticker assets
+
+on:
+  workflow_dispatch:
+  push:
+    branches: [main]
+
+permissions:
+  contents: write
+
+jobs:
+  stickers:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+
+      - name: Extract the supplied sticker strip into real PNG assets
+        shell: bash
+        run: |
+          python - <<'PY'
+          import base64, re
+          from pathlib import Path
+          import subprocess, sys
+
+          src = Path('public/stickers/bouquet.svg').read_text()
+          m = re.search(r'data:image/webp;base64,([^\" ]+)', src)
+          if not m:
+              raise SystemExit('Could not find embedded WebP in bouquet.svg')
+          raw = base64.b64decode(m.group(1))
+          Path('/tmp/stickers.webp').write_bytes(raw)
+          PY
+
+          python -m pip install --quiet pillow
+          python - <<'PY'
+          from PIL import Image
+          from pathlib import Path
+
+          out = Path('public/stickers/generated')
+          out.mkdir(parents=True, exist_ok=True)
+          im = Image.open('/tmp/stickers.webp').convert('RGBA')
+          if im.width < 7:
+              raise SystemExit(f'Unexpected sticker strip size: {im.size}')
+          names = ['bouquet','letter','drawing','music','avatars','pictures','world']
+          cell = im.width / 7
+          for i, name in enumerate(names):
+              x0 = round(i * cell)
+              x1 = round((i + 1) * cell)
+              crop = im.crop((x0, 0, x1, im.height))
+              crop.save(out / f'{name}.png', optimize=True)
+              print(name, crop.size)
+          PY
+
+      - name: Commit generated assets
+        shell: bash
+        run: |
+          git config user.name 'github-actions[bot]'
+          git config user.email '41898282+github-actions[bot]@users.noreply.github.com'
+          git add public/stickers/generated
+          if git diff --cached --quiet; then
+            echo 'No sticker changes.'
+            exit 0
+          fi
+          git commit -m 'Generate individual Rila sticker assets'
+          git push
