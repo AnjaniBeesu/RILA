@@ -15,13 +15,18 @@ jobs:
       - name: Checkout
         uses: actions/checkout@v4
 
+      - name: Install WebP tools
+        shell: bash
+        run: |
+          sudo apt-get update
+          sudo apt-get install -y --no-install-recommends webp imagemagick
+
       - name: Extract the supplied sticker strip into real PNG assets
         shell: bash
         run: |
           python - <<'PY'
           import base64, re
           from pathlib import Path
-          import subprocess, sys
 
           src = Path('public/stickers/bouquet.svg').read_text()
           m = re.search(r'data:image/webp;base64,([^\" ]+)', src)
@@ -29,27 +34,35 @@ jobs:
               raise SystemExit('Could not find embedded WebP in bouquet.svg')
           raw = base64.b64decode(m.group(1))
           Path('/tmp/stickers.webp').write_bytes(raw)
+          print(f'Extracted embedded WebP: {len(raw)} bytes')
           PY
 
-          python -m pip install --quiet pillow
-          python - <<'PY'
-          from PIL import Image
-          from pathlib import Path
+          # Do not use Pillow here: the GitHub runner's Python WebP decoder
+          # can fail on this particular embedded asset. The official WebP
+          # decoder is much more reliable.
+          dwebp /tmp/stickers.webp -o /tmp/stickers.png
 
-          out = Path('public/stickers/generated')
-          out.mkdir(parents=True, exist_ok=True)
-          im = Image.open('/tmp/stickers.webp').convert('RGBA')
-          if im.width < 7:
-              raise SystemExit(f'Unexpected sticker strip size: {im.size}')
-          names = ['bouquet','letter','drawing','music','avatars','pictures','world']
-          cell = im.width / 7
-          for i, name in enumerate(names):
-              x0 = round(i * cell)
-              x1 = round((i + 1) * cell)
-              crop = im.crop((x0, 0, x1, im.height))
-              crop.save(out / f'{name}.png', optimize=True)
-              print(name, crop.size)
-          PY
+          width=$(identify -format '%w' /tmp/stickers.png)
+          height=$(identify -format '%h' /tmp/stickers.png)
+          echo "Decoded sticker strip: ${width}x${height}"
+
+          if [ "$width" -lt 7 ]; then
+            echo "Unexpected sticker strip width: $width"
+            exit 1
+          fi
+
+          out="public/stickers/generated"
+          mkdir -p "$out"
+
+          names=(bouquet letter drawing music avatars pictures world)
+          for i in "${!names[@]}"; do
+            name="${names[$i]}"
+            x0=$(( i * width / 7 ))
+            x1=$(( (i + 1) * width / 7 ))
+            cell_width=$(( x1 - x0 ))
+            magick /tmp/stickers.png -crop "${cell_width}x${height}+${x0}+0" +repage "$out/$name.png"
+            echo "Generated $name.png (${cell_width}x${height})"
+          done
 
       - name: Commit generated assets
         shell: bash
