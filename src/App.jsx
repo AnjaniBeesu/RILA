@@ -1,13 +1,13 @@
 import { useState } from 'react'
 
 const options = [
-  { id: 'bouquet', label: 'a bouquet', index: 0, position: 'pos-one' },
-  { id: 'letter', label: 'a letter', index: 1, position: 'pos-two' },
-  { id: 'drawing', label: 'a drawing', index: 2, position: 'pos-three' },
-  { id: 'music', label: 'a tune', index: 3, position: 'pos-four' },
-  { id: 'avatars', label: 'avatars', index: 4, position: 'pos-five' },
-  { id: 'pictures', label: 'pictures', index: 5, position: 'pos-six' },
-  { id: 'world', label: 'a little world', index: 6, position: 'pos-seven' },
+  { id: 'bouquet', label: 'a bouquet', asset: '/stickers/bouquet.svg', position: 'pos-one' },
+  { id: 'letter', label: 'a letter', asset: '/stickers/letter.svg', position: 'pos-two' },
+  { id: 'drawing', label: 'a drawing', asset: '/stickers/drawing.svg', position: 'pos-three' },
+  { id: 'music', label: 'a tune', asset: '/stickers/music.svg', position: 'pos-four' },
+  { id: 'avatars', label: 'avatars', asset: '/stickers/avatars.svg', position: 'pos-five' },
+  { id: 'pictures', label: 'pictures', asset: '/stickers/pictures.svg', position: 'pos-six' },
+  { id: 'world', label: 'a little world', asset: '/stickers/world.svg', position: 'pos-seven' },
 ]
 
 function Sticker({ option, selected, onClick }) {
@@ -18,11 +18,7 @@ function Sticker({ option, selected, onClick }) {
       aria-pressed={selected}
       aria-label={`Add ${option.label}`}
     >
-      <span
-        className="sticker-art"
-        style={{ backgroundPosition: `${option.index * -100}px 0` }}
-        aria-hidden="true"
-      />
+      <img className="sticker-art" src={option.asset} alt="" draggable="false" />
       <span className="sticker-label">{option.label}</span>
       {selected && <span className="sticker-check">✓</span>}
     </button>
